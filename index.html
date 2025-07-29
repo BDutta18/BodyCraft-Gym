@@ -283,6 +283,25 @@
     </section>
     <!-- End Diet Plan Section -->
 
+    <!-- Start BMI Calculator Section -->
+     <section id="bmi-calculator" class="section__container bmi__container">
+      <h2 class="section__header">BMI Calculator</h2>
+      <p class="section__subheader">Check your Body Mass Index to understand your fitness level.</p>
+      <form id="bmiForm" class="bmi__form">
+        <div class="bmi__form__row">
+          <label for="bmi-weight">Weight (kg):</label>
+          <input type="number" id="bmi-weight" required min="20" max="200" />
+        </div>
+        <div class="bmi__form__row">
+          <label for="bmi-height">Height (cm):</label>
+          <input type="number" id="bmi-height" required min="100" max="250" />
+        </div>
+        <button class="btn" type="submit">Calculate BMI</button>
+      </form>
+      <div id="bmiResult" class="bmi__result"></div>
+    </section>
+    <!-- End BMI Calculator Section -->
+
     <footer class="section__container footer__container">
       <span class="bg__blur"></span>
       <span class="bg__blur footer__blur"></span>
@@ -350,6 +369,32 @@
           resultDiv.innerHTML = '<p style="color:red;">Error generating diet plan. Please try again later.</p>';
         }
       });
+
+      const bmiForm = document.getElementById("bmiForm");
+      const bmiResult = document.getElementById("bmiResult");
+      bmiForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const weight = parseFloat(document.getElementById("bmi-weight").value);
+        const heightCm = parseFloat(document.getElementById("bmi-height").value);
+        const heightM = heightCm / 100;
+        if (isNaN(weight) || isNaN(heightCm) || weight <= 0 || heightCm <= 0) {
+          bmiResult.innerHTML = `<p style="color:red;">Please enter valid weight and height.</p>`;
+          return;
+        }
+        const bmi = weight / (heightM * heightM);
+        const bmiRounded = bmi.toFixed(1);
+        let category = "";
+        if (bmi < 18.5) category = "Underweight";
+        else if (bmi < 24.9) category = "Normal weight";
+        else if (bmi < 29.9) category = "Overweight";
+        else category = "Obese";
+        bmiResult.innerHTML = `
+        <div class="diet__ai-result">
+          Your BMI is <strong>${bmiRounded}</strong>, which is considered <strong>${category}</strong>.
+          </div>`;
+  });
+
+      
     </script>
   </body>
 </html>
