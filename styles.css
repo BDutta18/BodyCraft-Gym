@@ -786,3 +786,51 @@ contact-us
 #backToTop:hover {
   background-color: #555;
 }
+/* --- NAVBAR HAMBURGER & MOBILE MENU BUG FIX START HERE --- */
+
+.nav__menu__btn {
+  display: none; 
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
+  z-index: 1001; 
+}
+
+@media (max-width: 900px) { 
+  .nav__links {
+    padding-top: 10px;;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 110%;
+    height: 1100%;
+   
+    background-color: rgba(12, 12, 12, 0.958); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); 
+
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 2.5rem;
+    transform: translateX(100%); 
+    transition: transform 0.4s ease-in-out; 
+    z-index: 1000; 
+    display: flex; 
+  }
+
+  
+  .nav__links.open {
+    transform: translateX(0); 
+  }
+
+ 
+  .nav__menu__btn {
+    display: block; 
+  }
+
+}
+
+
