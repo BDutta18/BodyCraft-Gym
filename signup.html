@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Body Craft Gym</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .auth__container {
+      max-width: 400px;
+      margin: 5rem auto;
+      background: var(--primary-color-light);
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    .auth__container h2 {
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+    .auth__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .auth__form input {
+      padding: 0.75rem 1rem;
+      border-radius: 5px;
+      border: 1px solid var(--secondary-color);
+      background: var(--primary-color-extra-light);
+      color: var(--white);
+      font-size: 1rem;
+    }
+    .auth__form input:focus {
+      outline: 2px solid var(--secondary-color);
+    }
+    .auth__form button {
+      background: var(--secondary-color);
+      color: var(--white);
+      font-size: 1rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .auth__form button:hover {
+      background: var(--secondary-color-dark);
+    }
+    .auth__footer {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .auth__footer a {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+    <div class="auth__container">
+      <h2>Create Account</h2>
+      <form class="auth__form" onsubmit="return handleSignUp(event)">
+        <input id="signup-name" type="text" placeholder="Full Name" required />
+        <input id="signup-email" type="email" placeholder="Email" required />
+        <input id="signup-password" type="password" placeholder="Password" required />
+        <input id="signup-confirm" type="password" placeholder="Confirm Password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="auth__footer">
+        Already have an account? <a href="signin.html">Sign In</a>
+      </div>
+    </div>
+  
+    <script>
+        function handleSignUp(event) {
+          event.preventDefault();
+      
+          const name = document.getElementById("signup-name").value.trim();
+          const email = document.getElementById("signup-email").value.trim();
+          const password = document.getElementById("signup-password").value;
+          const confirm = document.getElementById("signup-confirm").value;
+      
+          if (password !== confirm) {
+            alert("❌ Passwords do not match.");
+            return false;
+          }
+      
+          // ✅ Save credentials to localStorage (simulate account creation)
+          localStorage.setItem("userEmail", email);
+          localStorage.setItem("userPassword", password);
+      
+          alert("✅ Account created successfully!");
+          window.location.href = "signin.html"; // Redirect to sign-in
+      
+          return false;
+        }
+      </script>
+      
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In - Body Craft Gym</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .auth__container {
+      max-width: 400px;
+      margin: 5rem auto;
+      background: var(--primary-color-light);
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    .auth__container h2 {
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+    .auth__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .auth__form input {
+      padding: 0.75rem 1rem;
+      border-radius: 5px;
+      border: 1px solid var(--secondary-color);
+      background: var(--primary-color-extra-light);
+      color: var(--white);
+      font-size: 1rem;
+    }
+    .auth__form input:focus {
+      outline: 2px solid var(--secondary-color);
+    }
+    .auth__form button {
+      background: var(--secondary-color);
+      color: var(--white);
+      font-size: 1rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .auth__form button:hover {
+      background: var(--secondary-color-dark);
+    }
+    .auth__footer {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .auth__footer a {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+    <div class="auth__container">
+      <h2>Welcome Back</h2>
+      <form class="auth__form" onsubmit="return handleSignIn(event)">
+        <input id="signin-email" type="email" placeholder="Email" required />
+        <input id="signin-password" type="password" placeholder="Password" required />
+        <button type="submit">Sign In</button>
+      </form>
+      <div class="auth__footer">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+  
+    <script>
+        function handleSignIn(event) {
+          event.preventDefault();
+      
+          const email = document.getElementById("signin-email").value.trim();
+          const password = document.getElementById("signin-password").value;
+      
+          // ✅ Retrieve stored credentials
+          const savedEmail = localStorage.getItem("userEmail");
+          const savedPassword = localStorage.getItem("userPassword");
+      
+          if (email === savedEmail && password === savedPassword) {
+            alert("✅ Successfully Signed In!");
+            window.location.href = "index.html"; // Redirect to homepage
+          } else {
+            alert("❌ Account does not exist or incorrect password.");
+          }
+      
+          return false;
+        }
+      </script>
+      
+  </body>
+  
+</html>
