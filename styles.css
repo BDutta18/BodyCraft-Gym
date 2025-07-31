@@ -127,6 +127,71 @@ nav {
   width: 50%;
 }
 
+/* Hamburger toggle (hidden checkbox) */
+.nav-toggle {
+  display: none;
+}
+
+/* Hamburger icon */
+.nav-toggle-label {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1001;
+}
+
+.nav-toggle-label span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .nav__links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    display: none;
+    padding: 1rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav__links li {
+    width: 100%;
+    padding: 0.5rem 1rem;
+  }
+
+  .nav__links li a {
+    width: 100%;
+    display: block;
+  }
+
+  .nav-toggle:checked + .nav-toggle-label + .nav__links {
+    display: flex;
+  }
+
+  .nav-toggle-label {
+    display: flex;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .nav__links .btn {
+    width: 90%;
+    margin: 0.5rem auto;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+  }
+}
 .header__container {
   position: relative;
   padding-top: 2rem;
