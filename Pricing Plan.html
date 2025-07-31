@@ -5,16 +5,21 @@
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Pricing Plan</title>
+          <link 
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
           <link rel="stylesheet" href="styles.css">
         </head>
 
         <body>
+
           <nav>
       
       </div>
       <ul class="nav__links">
         <li class="link"><a href="index.html">Home</a></li>
-        <li class="link"><a href="index.html">Program</a></li>
+        <li class="link"><a href="index.html#explore__program">Program</a></li>
         <li class="link"><a href="index.html">Service</a></li>
         <li class="link"><a href="index.html#diet-plan">Diet Plan</a></li>
         <li class="link"><a href="index.html">About</a></li>
@@ -22,6 +27,9 @@
         <li class="link"><a href="contact.html">Contact Us</a></li>
       </ul>
       <button class="btn">Join Now</button>
+      <div class="nav__menu__btn" id="menu-btn"> <i class="ri-menu-line"></i>
+        </div>
+        
     </nav>
           <section class="section__container price__container">
       <h2 class="section__header">OUR PRICING PLAN</h2>
@@ -93,7 +101,36 @@
         </div>
       </div>
     </section>
+<script src="script.js"></script>
+<script>
+  const form = document.getElementById('dietForm');
+  const resultDiv = document.getElementById('dietResult');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    resultDiv.innerHTML = '<p>Generating your personalized diet plan...</p>';
+    const age = document.getElementById('age').value;
+    const weight = document.getElementById('weight').value;
+    const intensity = document.getElementById('intensity').value;
+    const preferences = document.getElementById('preferences').value;
+    const prompt = `Create a personalized meal plan and nutritional breakdown for a user with the following details:\nAge: ${age}\nWeight: ${weight}kg\nWorkout Intensity: ${intensity}\nDietary Preferences: ${preferences || 'None'}\nProvide meal suggestions for breakfast, lunch, dinner, and snacks, with calories, protein, carbs, and fats for each meal. Format the response for easy reading.`;
+    try {
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyAatHh04PTBB4wzgaL22VFEwtRb7kCrOLE', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }]
+        })
+      });
+      const data = await response.json();
+      let text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response from AI.';
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      resultDiv.innerHTML = `<div class="diet__ai-result">${text.replace(/\n/g, '<br>')}</div>`;
+    } catch (err) {
+      resultDiv.innerHTML = '<p style="color:red;">Error generating diet plan. Please try again later.</p>';
+    }
+  });
+</script>
 
-          
-        </body>
-        </html>
+      </div>
+    </body>
+    </html>
