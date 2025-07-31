@@ -834,3 +834,111 @@ contact-us
 }
 
 
+
+/* Privacy Policy Page Styles */
+.privacy__container {
+  max-width: 900px;
+  margin: auto;
+  padding: 3rem 1rem;
+  background-color: var(--primary-color-light);
+  border-radius: 10px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.privacy__content {
+  color: var(--white);
+  line-height: 1.7;
+}
+
+.privacy__intro {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-light);
+  text-align: center;
+  padding: 1.5rem;
+  background-color: var(--primary-color-extra-light);
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.privacy__section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background-color: var(--primary-color-extra-light);
+  border-radius: 8px;
+  border: 1px solid rgba(71, 215, 95, 0.1);
+}
+
+.privacy__section h2 {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.privacy__section p {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.privacy__section ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.privacy__section li {
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+}
+
+.privacy__section li strong {
+  color: var(--secondary-color);
+}
+
+.privacy__contact {
+  background-color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+  margin-top: 1rem;
+}
+
+.privacy__contact p {
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.privacy__footer {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid var(--secondary-color);
+}
+
+.privacy__footer p {
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+/* Mobile Responsiveness for Privacy Policy */
+@media (max-width: 900px) {
+  .privacy__container {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+  
+  .privacy__section {
+    padding: 1rem;
+  }
+  
+  .privacy__section ul {
+    margin-left: 1rem;
+  }
+}
