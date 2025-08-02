@@ -1,0 +1,470 @@
+/* --- CHATBOT STYLES --- */
+/* This file is now correctly mapped to your main styles.css variables for a perfect theme match. */
+
+.chatbot-toggler {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    /* Uses your main app's gradient for the button */
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+.chatbot-toggler:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+body.show-chatbot .chatbot-toggler {
+    transform: rotate(90deg);
+}
+.chatbot-toggler span {
+    position: absolute;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.chatbot-toggler span:last-child,
+body.show-chatbot .chatbot-toggler span:first-child {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+body.show-chatbot .chatbot-toggler span:last-child {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+/* Chatbot Window */
+.chatbot {
+  position: fixed;
+  right: 35px;
+  bottom: 90px;
+  width: 420px;
+  height: 500px;
+
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
+              0 32px 64px -48px rgba(0,0,0,0.5);
+  transition: all 0.1s ease;
+
+  /* Animation and visibility handling */
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.5);
+  transform-origin: bottom right;
+
+  /* ✅ FIX: Proper flex layout */
+  display: flex;
+  flex-direction: column; /* Stack header, chatbox, and input vertically */
+
+  overflow: hidden; /* Don't scroll the outer container */
+  z-index: 999;
+}
+
+
+body.show-chatbot .chatbot {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+.chatbot header {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    padding: 16px 0;
+    text-align: center;
+    position: relative; /* Keeps it in the normal flow */
+    z-index: 2; /* Ensures it's above the chatbox */
+}
+
+.chatbot header h2 {
+    color: white;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.chatbot header .close-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* ✅ MAIN FIX: Proper scrolling setup for chatbox */
+.chatbot .chatbox {
+  /* ✅ Main Fix 2: Make the chatbox grow to fill available space */
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px 20px 10px; /* Adjusted padding, no large bottom value needed */
+}
+
+
+/* ✅ Webkit scrollbar styling for better appearance */
+.chatbot .chatbox::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chatbot .chatbox::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+}
+
+.chatbot .chatbox::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 3px;
+}
+
+.chatbot .chatbox::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+
+/* ✅ Chat messages container */
+.chatbox .chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: min-content; /* ✅ Allow content to determine height */
+}
+
+.chatbox .chat {
+    display: flex;
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    word-wrap: break-word; /* ✅ Break long words */
+    overflow-wrap: break-word; /* ✅ Modern alternative */
+}
+
+.chatbox .outgoing {
+    justify-content: flex-end;
+}
+
+.chatbox .incoming {
+  display: flex;
+  align-items: flex-start;  /* aligns icon and text top-aligned */
+  gap: 10px;                /* space between icon and text */
+}
+
+.bot-message-content {
+  display: flex;
+  flex-direction: column;   /* stack message and buttons vertically */
+  gap: 6px;                 /* small gap between text and preview buttons */
+}
+
+
+
+.chatbox .incoming span {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 32px;
+    border-radius: 4px;
+    margin: 0 10px 0 0;
+    align-self: flex-start; /* ✅ Align to top for long messages */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* ✅ Prevent avatar from shrinking */
+}
+
+.chatbox .chat p {
+    padding: 12px 16px;
+    border-radius: 10px;
+    max-width: 75%;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    word-wrap: break-word; /* ✅ Break long words */
+    overflow-wrap: break-word;
+    margin: 0; /* ✅ Remove default margin */
+    line-height: 1.4; /* ✅ Better readability */
+}
+
+.chatbox .outgoing p {
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 10px 10px 0 10px;
+    margin-left: auto; /* ✅ Push to right */
+}
+
+.chatbox .incoming p {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-radius: 10px 10px 10px 0;
+}
+
+/* ✅ Chat Input - Fixed positioning */
+.chatbot .chat-input {
+  display: flex;
+  gap: 5px;
+  /* ✅ Main Fix 3: The input is now a normal flex item, not absolutely positioned */
+  padding: 10px 20px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+
+
+.chat-input textarea {
+    flex: 1;
+    height: 55px;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    padding: 16px 15px 16px 0;
+    font-family: inherit;
+}
+
+.chat-input textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Button styling */
+.chat-input button {
+    align-self: flex-end;
+    color: var(--accent-primary);
+    cursor: pointer;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    font-size: 1.7rem;
+    border: none;
+    background: none;
+}
+
+.chat-input button:hover {
+    color: var(--accent-secondary);
+    background: var(--bg-tertiary);
+}
+
+/* Send button logic */
+.chat-input #send-btn {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0);
+    transition: all 0.2s ease;
+}
+
+.chat-input textarea:valid ~ #send-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+/* ✅ Loading indicator for when bot is typing */
+.chatbox .typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border-radius: 10px 10px 10px 0;
+    max-width: 75%;
+    margin: 0;
+}
+
+.typing-indicator .dots {
+    display: flex;
+    gap: 4px;
+}
+
+.typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--text-secondary);
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+body.show-chatbot {
+    overflow: hidden;
+}
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+    30% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}
+
+/* Floating buttons */
+.floating-action,
+.chatbot-toggler {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    position: fixed;
+    right: 30px;
+    z-index: 1001;
+    background: var(--accent-primary);
+    color: white;
+    transition: var(--transition);
+}
+
+.floating-action:hover,
+.chatbot-toggler:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.floating-action {
+    bottom: 100px;
+    z-index: 1002;
+}
+
+.chatbot-toggler {
+    bottom: 30px;
+    z-index: 1001;
+}
+
+.floating-action i,
+.chatbot-toggler span,
+.chatbot-toggler i {
+    font-size: 24px;
+}
+
+body.show-chatbot .floating-action {
+    display: none;
+}
+
+/* Focus states for accessibility */
+:is(button, textarea):focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 490px) {
+    .chatbot {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .chatbot .chatbox {
+        padding: 15px;
+    }
+
+    .chatbox .chat p {
+        max-width: 85%;
+        font-size: 0.9rem;
+    }
+
+    .chat-input {
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 320px) {
+    .chatbox .chat p {
+        max-width: 90%;
+        padding: 10px 12px;
+    }
+}
+
+.preview-button-container {
+  display: flex;
+  flex-direction: column;  /* Stack buttons vertically */
+  gap: 10px;               /* Space between buttons */
+  margin-top: 8px;         /* Space above container */
+}
+
+.preview-button {
+  width: 100%;             /* Make buttons full width of container */
+  padding: 10px 15px;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.preview-button:hover {
+  background-color: #5566cc;
+}
+
+.chatbot, .chatbot * {
+  box-sizing: border-box;
+}
+
+body.dark-mode .chatbot {
+  background-color: #121212;
+  color: #eee;
+}
+
+body.dark-mode .chatbot .chatbox {
+  background-color: transparent; /* or #121212 if needed */
+  color: #eee;
+}
+
+body.dark-mode .chatbot .chatbox .chat.incoming p {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+
+body.dark-mode .chatbot .chatbox .chat.outgoing p {
+  background-color: #2a2a2a;
+  color: #ccc;
+}
+
+/* Buttons inside chatbot */
+body.dark-mode .preview-button-container button.preview-button {
+  background-color: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+/* Scrollbar thumb */
+body.dark-mode .chatbot .chatbox::-webkit-scrollbar-thumb {
+  background-color: #555;
+}
+
+body.dark-mode #chat-input textarea {
+  background-color: #1e1e1e;  /* dark background */
+  color: #eee;               /* light text */
+  border-color: #444;        /* subtle border color if applicable */
+}
+
+body.dark-mode #chat-input textarea::placeholder {
+  color: #999;               /* lighter placeholder text */
+}
+
+body.dark-mode .chatbot .chat-input {
+  background-color: #1e1e1e; /* Sets a dark background for the input bar */
+  border-top: 1px solid #333;   /* A darker top border */
+}

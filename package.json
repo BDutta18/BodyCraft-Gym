@@ -1,0 +1,27 @@
+{
+  "name": "bodycraft-gym",
+  "version": "1.0.0",
+  "description": "**BodyCraft Gym** is a modern, responsive fitness website built using HTML and CSS. It showcases gym programs, pricing plans, class offerings, testimonials, and more in a clean, engaging layout. This project is part of open-source practice and frontend development learning.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krishagandhi0711/BodyCraft-Gym.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/krishagandhi0711/BodyCraft-Gym/issues"
+  },
+  "homepage": "https://github.com/krishagandhi0711/BodyCraft-Gym#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
