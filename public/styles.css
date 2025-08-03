@@ -963,3 +963,104 @@ contact-us
     margin-left: 1rem;
   }
 }
+
+
+
+
+
+
+
+
+/* === Theme Button === */
+.theme-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 10px;
+  transition: color 0.3s ease;
+}
+
+.theme-btn:hover {
+  color: #f0c420;
+}
+
+/* === Light Mode === */
+body.light-mode {
+  background-color: #f4f6f8; /* light gray for contrast */
+  color: #1a1a1a;
+}
+
+/* Navbar */
+body.light-mode nav,
+body.light-mode .navbar {
+  background-color: #ffffff;
+}
+
+body.light-mode .nav-link {
+  color: #212121;
+}
+
+/* Headings */
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3 {
+  color: #111;
+}
+
+/* Paragraphs and text blocks */
+body.light-mode p,
+body.light-mode .hero-content p,
+body.light-mode .feature-card p,
+body.light-mode .footer p {
+  color: #333;
+}
+
+/* Links */
+body.light-mode a {
+  color: #0077cc;
+}
+
+body.light-mode a:hover {
+  color: #004a99;
+}
+
+/* Buttons */
+body.light-mode .btn {
+  background-color: #007bff;
+  color: white;
+}
+
+body.light-mode .btn-outline {
+  border: 1px solid #007bff;
+  color: #007bff;
+  background: transparent;
+}
+
+body.light-mode .btn-primary {
+  background-color: #007aff;
+  color: white;
+}
+
+/* Sections that are dark by default */
+body.light-mode .dark-section,
+body.light-mode .footer {
+  background-color: #f9f9f9;
+  color: #1a1a1a;
+}
+
+
+/* Hero Section: Light Mode Background Fix */
+body.light-mode .hero {
+  background-color: black; /* pure white */
+  /* or try this for softer */
+  /* background: linear-gradient(to right, #ffffff, #f2f6ff); */
+}
+
+/* Optional: Add subtle shadow to make content pop */
+body.light-mode .hero .hero-content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
