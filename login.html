@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link 
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>Login - BODY CRAFT GYM</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+        :root {
+          --primary-color: #111317;
+          --primary-color-light: #1f2125;
+          --secondary-color: #47d75f;
+          --text-light: #d1d5db;
+          --white: #ffffff;
+        }
+        * { padding: 0; margin: 0; box-sizing: border-box; }
+        body { font-family: "Poppins", sans-serif; background-color: var(--primary-color); }
+        .btn { padding: 0.75rem 1.5rem; outline: none; border: none; font-size: 1rem; color: var(--white); background-color: var(--secondary-color); border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .bg__blur { position: absolute; box-shadow: 0 0 1000px 50px var(--secondary-color); z-index: -1; }
+        .login-container { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; position: relative; overflow: hidden; background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/GYM ROOM.jpg'); background-size: cover; background-position: center; }
+        .login__blur { top: 0; left: 0; }
+        .login-box { background-color: rgba(31, 33, 37, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 10px; text-align: center; max-width: 400px; width: 100%; z-index: 1; }
+        .login-box .nav__logo { display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; }
+        .login-box .nav__logo a { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 1.5rem; font-weight: 600; text-decoration: none; }
+        .login-box .nav__logo img { max-width: 40px; }
+        .login-box h2 { color: var(--white); font-size: 1.75rem; margin-bottom: 0.5rem; }
+        .login-box p { color: var(--text-light); margin-bottom: 1.5rem; }
+        .login-form input { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 5px; border: 1px solid var(--primary-color-light); background-color: var(--primary-color); color: var(--white); font-size: 1rem; }
+        .form-buttons { display: flex; gap: 1rem; }
+        .form-buttons .btn { flex: 1; }
+        .login-footer { margin-top: 1.5rem; }
+        .login-footer a { color: var(--text-light); text-decoration: none; transition: 0.3s; }
+        .login-footer a:hover { color: var(--secondary-color); }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <span class="bg__blur"></span>
+        <span class="bg__blur login__blur"></span>
+        <div class="login-box">
+            <div class="nav__logo">
+                <a href="index.html"><img src="assets/logo.png" alt="logo" /><span>BODYCRAFT</span></a>
+            </div>
+            <h2>Welcome!</h2>
+            <p>Enter your email and password to log in or sign up.</p>
+            
+            <form id="loginForm" class="login-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <div class="form-buttons">
+                    <button type="button" id="login-btn" class="btn">Login</button>
+                    <button type="button" id="signup-btn" class="btn">Sign Up</button>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                <a href="index.html">Go back to Home</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginBtn = document.getElementById('login-btn');
+            const signupBtn = document.getElementById('signup-btn');
+            const emailField = document.getElementById('email');
+            const passwordField = document.getElementById('password');
+
+            // If user is already logged in, redirect them
+            if (localStorage.getItem('loggedInUser')) {
+                window.location.href = 'index.html';
+            }
+
+            // --- Login Functionality ---
+            loginBtn.addEventListener('click', () => {
+                const email = emailField.value;
+                const password = passwordField.value;
+
+                if (!email || !password) {
+                    alert('Please enter both email and password.');
+                    return;
+                }
+
+                // In a real app, you would verify the password here.
+                // For this simulation, we'll just log the user in.
+                const user = {
+                    email: email,
+                    name: email.split('@')[0]
+                };
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+                alert('Login successful! Redirecting...');
+                window.location.href = 'index.html';
+            });
+
+            // --- Sign Up Functionality ---
+            signupBtn.addEventListener('click', () => {
+                const email = emailField.value;
+                const password = passwordField.value;
+
+                if (!email || !password) {
+                    alert('Please enter both email and password to sign up.');
+                    return;
+                }
+
+                // In this simulation, signing up is the same as logging in.
+                // We just save the new user's info.
+                const user = {
+                    email: email,
+                    name: email.split('@')[0]
+                };
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+
+                alert('Account created successfully! You are now logged in.');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

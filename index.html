@@ -12,7 +12,8 @@
   </head>
   <body>
     <nav>
-      
+      <div class="nav__logo">
+        <a href="#"><img src="assets/logo.png" alt="logo" />BODYCRAFT</a>
       </div>
       <ul class="nav__links">
         <li class="link"><a href="#">Home</a></li>
@@ -21,7 +22,15 @@
         <li class="link"><a href="#">About</a></li>
         <li class="link"><a href="#">Contact</a></li>
       </ul>
-      <button class="btn">Join Now</button>
+      <!-- Auth Elements -->
+      <div id="auth-container">
+          <a href="login.html" class="btn" id="login-link">Login</a>
+          <div id="user-profile" style="display: none;">
+              <img id="user-photo" src="" alt="User Photo" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+              <span id="user-name" style="color: white; font-weight: 600;"></span>
+              <button id="logout-btn" class="btn" style="margin-left: 15px;">Logout</button>
+          </div>
+      </div>
     </nav>
 
     <header class="section__container header__container">
@@ -255,7 +264,7 @@
       <span class="bg__blur"></span>
       <span class="bg__blur footer__blur"></span>
       <div class="footer__col">
-      
+        
         <p>
           Take the first step towards a healthier, stronger you with our
           unbeatable pricing plans. Let's sweat, achieve, and conquer together!
@@ -290,5 +299,42 @@
     <div class="footer__bar">
       Copyright © Bodhisatwa Dutta-18. All rights reserved.
     </div>
+
+    <!-- Simple localStorage Auth Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginLink = document.getElementById('login-link');
+            const userProfile = document.getElementById('user-profile');
+            const userName = document.getElementById('user-name');
+            const userPhoto = document.getElementById('user-photo');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            const loggedInUser = localStorage.getItem('loggedInUser');
+
+            if (loggedInUser) {
+                // User is logged in
+                const user = JSON.parse(loggedInUser);
+                loginLink.style.display = 'none';
+                userProfile.style.display = 'flex';
+                userName.textContent = `Welcome, ${user.name}!`;
+                
+                // Use a placeholder for the user photo
+                userPhoto.src = 'https://placehold.co/40x40/47d75f/FFFFFF?text=' + user.name.charAt(0).toUpperCase();
+
+
+                logoutBtn.addEventListener('click', () => {
+                    // Clear user data from storage
+                    localStorage.removeItem('loggedInUser');
+                    // Refresh the page to update the UI
+                    window.location.reload();
+                });
+
+            } else {
+                // User is not logged in
+                loginLink.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        });
+    </script>
   </body>
 </html>

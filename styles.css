@@ -574,6 +574,52 @@ nav {
   color: var(--white);
 }
 
+/* Styles for Firebase Auth Elements */
+#google-login-btn {
+    background-color: #4285F4; /* Google's brand blue */
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#google-login-btn:hover {
+    background-color: #357ae8;
+}
+
+#user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    background-color: transparent;
+    padding: 0; /* Adjusted for better alignment */
+    border-radius: 5px;
+}
+
+#user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+}
+
+#user-name {
+    font-weight: 600;
+    color: var(--white);
+}
+
+#logout-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 0.5rem 1rem; /* Smaller padding for nav button */
+}
+
+#logout-btn:hover {
+    background-color: #e60000;
+}
+
+
 @media (width < 900px) {
   .nav__links {
     display: none;
