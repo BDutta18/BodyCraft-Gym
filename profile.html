@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link 
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>Your Profile - BODY CRAFT GYM</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+        :root {
+          --primary-color: #111317;
+          --primary-color-light: #1f2125;
+          --secondary-color: #47d75f;
+          --text-light: #d1d5db;
+          --white: #ffffff;
+        }
+        * { padding: 0; margin: 0; box-sizing: border-box; }
+        body { font-family: "Poppins", sans-serif; background-color: var(--primary-color); color: var(--text-light); }
+        .btn { padding: 0.75rem 1.5rem; outline: none; border: none; font-size: 1rem; color: var(--white); background-color: var(--secondary-color); border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background-color: #36a44c; }
+        .container { max-width: 1200px; margin: auto; padding: 2rem; }
+        
+        nav { background-color: var(--primary-color-light); padding: 1rem 2rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .nav__logo a { display: flex; align-items: center; gap: 10px; color: var(--white); font-size: 1.5rem; font-weight: 600; text-decoration: none; }
+        .nav__logo img { max-width: 40px; }
+        
+        .profile-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
+        
+        .profile-card, .details-card { background-color: var(--primary-color-light); padding: 2rem; border-radius: 10px; }
+        
+        /* Profile Card (Left Column) */
+        .profile-card { text-align: center; }
+        .profile-card img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--secondary-color); margin-bottom: 1rem; }
+        .profile-card .profile-name-container { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 0.5rem; }
+        .profile-card h2 { color: var(--white); }
+        .profile-card p { margin-bottom: 1.5rem; }
+        .membership-status { padding: 0.5rem 1rem; border-radius: 5px; font-weight: 600; }
+        .membership-status.active { background-color: var(--secondary-color); color: var(--primary-color); }
+        .membership-status.expired { background-color: #ff4d4d; color: var(--white); }
+        #edit-name-btn { font-size: 0.8rem; padding: 0.2rem 0.6rem; background-color: var(--primary-color); border: 1px solid var(--secondary-color); }
+
+        /* Details Sections (Right Column) */
+        .details-card h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--secondary-color); padding-bottom: 0.5rem; }
+        .details-section { margin-bottom: 2rem; }
+        .details-section .detail-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .details-section .detail-item span:first-child { font-weight: 600; color: var(--white); }
+        .details-section input { width: 60%; background: var(--primary-color); border: 1px solid var(--primary-color-light); color: var(--white); padding: 0.5rem; border-radius: 5px; }
+        
+        .tracking-list { list-style: none; padding-left: 0; }
+        .tracking-list li { background-color: var(--primary-color); padding: 0.75rem 1rem; border-radius: 5px; margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+        
+        .form-inline { display: flex; gap: 1rem; margin-top: 1rem; }
+        .form-inline input { flex: 1; background: var(--primary-color); border: 1px solid var(--primary-color-light); color: var(--white); padding: 0.5rem; border-radius: 5px; }
+        
+        @media (max-width: 768px) { .profile-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav__logo">
+                <a href="index.html"><img src="assets/logo.png" alt="logo" /><span>BODYCRAFT</span></a>
+            </div>
+            <a href="index.html" class="btn">Back to Home</a>
+        </nav>
+
+        <div class="profile-grid">
+            <!-- Left Column: User Info -->
+            <div class="profile-card">
+                <img id="profile-pic" src="" alt="Profile Picture">
+                <div class="profile-name-container">
+                    <h2 id="profile-name-display"></h2>
+                    <input type="text" id="profile-name-input" style="display: none; font-size: 1.5rem; width: 60%;">
+                    <button id="edit-name-btn" class="btn">Edit</button>
+                </div>
+                <p id="profile-email"></p>
+                <p>Membership: <span id="membership-type"></span></p>
+                <span id="membership-status" class="membership-status"></span>
+            </div>
+
+            <!-- Right Column: Details & Tracking -->
+            <div class="details-card">
+                <!-- Personal Information -->
+                <div class="details-section">
+                    <h3>Personal Information <button id="edit-details-btn" class="btn" style="font-size: 0.8rem; padding: 0.4rem 0.8rem; float: right;">Edit</button></h3>
+                    <div class="detail-item"><span>Contact:</span> <span id="contact-display"></span><input type="text" id="contact-input" style="display: none;"></div>
+                    <div class="detail-item"><span>Goal:</span> <span id="goal-display"></span><input type="text" id="goal-input" style="display: none;"></div>
+                </div>
+
+                <!-- Weight Tracking -->
+                <div class="details-section">
+                    <h3>Weight / BMI Tracking</h3>
+                    <ul id="weight-history" class="tracking-list"></ul>
+                    <form id="weight-form" class="form-inline">
+                        <input type="number" id="new-weight" placeholder="New Weight (kg)" required>
+                        <button type="submit" class="btn">Add</button>
+                    </form>
+                </div>
+
+                <!-- Workout History -->
+                <div class="details-section">
+                    <h3>Workout History</h3>
+                    <ul id="workout-history" class="tracking-list"></ul>
+                    <form id="workout-form" class="form-inline">
+                        <input type="text" id="new-workout" placeholder="e.g., Chest Day" required>
+                        <button type="submit" class="btn">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            if (!loggedInUser) {
+                alert('You are not logged in. Redirecting...');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // --- Mock Data Management ---
+            let userProfileData = JSON.parse(localStorage.getItem(`profile_${loggedInUser.email}`));
+            if (!userProfileData) {
+                // Create default mock data if none exists
+                userProfileData = {
+                    contact: '123-456-7890',
+                    goal: 'Lose 5kg',
+                    membershipType: 'Yearly Plan',
+                    membershipStatus: 'Active',
+                    weightHistory: [{ date: '2025-08-01', weight: 85 }, { date: '2025-08-04', weight: 84 }],
+                    workoutHistory: [{ date: '2025-08-03', activity: 'Leg Day' }, { date: '2025-08-01', activity: 'Back & Biceps' }]
+                };
+                saveProfileData();
+            }
+
+            function saveProfileData() {
+                localStorage.setItem(`profile_${loggedInUser.email}`, JSON.stringify(userProfileData));
+            }
+
+            // --- UI Elements ---
+            const profilePic = document.getElementById('profile-pic');
+            const profileNameDisplay = document.getElementById('profile-name-display');
+            const profileNameInput = document.getElementById('profile-name-input');
+            const editNameBtn = document.getElementById('edit-name-btn');
+            const profileEmail = document.getElementById('profile-email');
+            const membershipType = document.getElementById('membership-type');
+            const membershipStatus = document.getElementById('membership-status');
+            const editBtn = document.getElementById('edit-details-btn');
+            
+            const contactDisplay = document.getElementById('contact-display');
+            const contactInput = document.getElementById('contact-input');
+            const goalDisplay = document.getElementById('goal-display');
+            const goalInput = document.getElementById('goal-input');
+            
+            const weightHistoryList = document.getElementById('weight-history');
+            const workoutHistoryList = document.getElementById('workout-history');
+            const weightForm = document.getElementById('weight-form');
+            const workoutForm = document.getElementById('workout-form');
+
+            // --- Render Functions ---
+            function renderProfile() {
+                profileNameDisplay.textContent = loggedInUser.name;
+                profileEmail.textContent = loggedInUser.email;
+                profilePic.src = 'https://placehold.co/120x120/47d75f/FFFFFF?text=' + loggedInUser.name.charAt(0).toUpperCase();
+                
+                membershipType.textContent = userProfileData.membershipType;
+                membershipStatus.textContent = userProfileData.membershipStatus;
+                membershipStatus.className = `membership-status ${userProfileData.membershipStatus.toLowerCase()}`;
+                
+                contactDisplay.textContent = userProfileData.contact;
+                goalDisplay.textContent = userProfileData.goal;
+            }
+
+            function renderLists() {
+                // Weight History
+                weightHistoryList.innerHTML = '';
+                userProfileData.weightHistory.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span>${item.date}</span> <span>${item.weight} kg</span>`;
+                    weightHistoryList.prepend(li); // Show newest first
+                });
+
+                // Workout History
+                workoutHistoryList.innerHTML = '';
+                userProfileData.workoutHistory.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span>${item.date}</span> <span>${item.activity}</span>`;
+                    workoutHistoryList.prepend(li); // Show newest first
+                });
+            }
+
+            // --- Event Listeners ---
+            editNameBtn.addEventListener('click', () => {
+                const isEditing = editNameBtn.textContent === 'Save';
+                if (isEditing) {
+                    // Save the new name
+                    const newName = profileNameInput.value;
+                    if (newName) {
+                        loggedInUser.name = newName;
+                        localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser)); // Update the main user object
+                        renderProfile(); // Re-render to show the new name
+                    }
+                    // Switch back to display mode
+                    profileNameDisplay.style.display = 'inline';
+                    profileNameInput.style.display = 'none';
+                    editNameBtn.textContent = 'Edit';
+                } else {
+                    // Switch to edit mode
+                    profileNameInput.value = loggedInUser.name;
+                    profileNameDisplay.style.display = 'none';
+                    profileNameInput.style.display = 'inline-block';
+                    editNameBtn.textContent = 'Save';
+                }
+            });
+
+            editBtn.addEventListener('click', () => {
+                const isEditing = editBtn.textContent === 'Save';
+                if (isEditing) {
+                    // Save the data
+                    userProfileData.contact = contactInput.value;
+                    userProfileData.goal = goalInput.value;
+                    saveProfileData();
+                    
+                    // Re-render the profile to show the updated information
+                    renderProfile();
+                    
+                    // Switch back to display mode
+                    contactDisplay.style.display = 'inline';
+                    contactInput.style.display = 'none';
+                    goalDisplay.style.display = 'inline';
+                    goalInput.style.display = 'none';
+                    editBtn.textContent = 'Edit';
+                } else {
+                    // Switch to edit mode
+                    contactInput.value = userProfileData.contact;
+                    goalInput.value = userProfileData.goal;
+                    
+                    contactDisplay.style.display = 'none';
+                    contactInput.style.display = 'inline-block';
+                    goalDisplay.style.display = 'none';
+                    goalInput.style.display = 'inline-block';
+                    editBtn.textContent = 'Save';
+                }
+            });
+
+            weightForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newWeight = document.getElementById('new-weight').value;
+                if (!newWeight) return;
+                userProfileData.weightHistory.push({ date: new Date().toISOString().split('T')[0], weight: newWeight });
+                saveProfileData();
+                renderLists();
+                e.target.reset();
+            });
+
+            workoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newWorkout = document.getElementById('new-workout').value;
+                if (!newWorkout) return;
+                userProfileData.workoutHistory.push({ date: new Date().toISOString().split('T')[0], activity: newWorkout });
+                saveProfileData();
+                renderLists();
+                e.target.reset();
+            });
+
+            // --- Initial Load ---
+            renderProfile();
+            renderLists();
+        });
+    </script>
+</body>
+</html>

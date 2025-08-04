@@ -9,6 +9,68 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <title>BODY CRAFT GYM</title>
+    <style>
+        /* Styles for the new profile dropdown */
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .profile-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #47d75f;
+        }
+
+        .profile-info span {
+            color: white;
+            font-weight: 600;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #1f2125;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a, .dropdown-content button {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            width: 100%;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content a:hover, .dropdown-content button:hover {
+            background-color: #35373b;
+        }
+        
+        #logout-btn {
+            color: #ff4d4d;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
   </head>
   <body>
     <nav>
@@ -25,10 +87,16 @@
       <!-- Auth Elements -->
       <div id="auth-container">
           <a href="login.html" class="btn" id="login-link">Login</a>
-          <div id="user-profile" style="display: none;">
-              <img id="user-photo" src="" alt="User Photo" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-              <span id="user-name" style="color: white; font-weight: 600;"></span>
-              <button id="logout-btn" class="btn" style="margin-left: 15px;">Logout</button>
+          
+          <div id="user-profile" class="profile-dropdown" style="display: none;">
+              <div class="profile-info">
+                  <img id="user-photo" src="" alt="User Photo">
+                  <span id="user-name"></span>
+              </div>
+              <div class="dropdown-content">
+                  <a href="profile.html">View Profile</a>
+                  <button id="logout-btn">Logout</button>
+              </div>
           </div>
       </div>
     </nav>
@@ -315,7 +383,7 @@
                 // User is logged in
                 const user = JSON.parse(loggedInUser);
                 loginLink.style.display = 'none';
-                userProfile.style.display = 'flex';
+                userProfile.style.display = 'block'; // Use 'block' for the dropdown container
                 userName.textContent = `Welcome, ${user.name}!`;
                 
                 // Use a placeholder for the user photo
